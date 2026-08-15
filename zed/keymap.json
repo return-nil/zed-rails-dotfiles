@@ -12,5 +12,12 @@
     "bindings": {
       // Example: "j k": "vim::NormalBefore"
     }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-d": "pane::SplitRight",
+      "cmd-shift-d": "pane::SplitDown"
+    }
   }
 ]
