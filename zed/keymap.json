@@ -31,5 +31,10 @@
       "cmd-alt-up": "workspace::ActivatePaneUp",
       "cmd-alt-down": "workspace::ActivatePaneDown"
     }
+  },
+  {
+    "bindings": {
+      "alt-cmd-y": "editor::OpenPermalinkToLine"
+    }
   }
 ]

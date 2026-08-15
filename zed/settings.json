@@ -1,6 +1,18 @@
 // Zed settings
 // https://zed.dev/docs/configuring-zed
 {
+  "toolbar": {
+    "code_actions": true
+  },
+  "git": {
+    "inline_blame": {
+      "show_commit_summary": true
+    }
+  },
+  "buffer_font_weight": 400.0,
+  "agent_buffer_font_size": 15.0,
+  "markdown_preview_font_size": 15.0,
+  "agent_ui_font_size": 16.0,
   "auto_install_extensions": {
     "html": true,
     "ruby": true
@@ -27,14 +39,14 @@
   "session": {
     "trust_all_worktrees": true
   },
-  "base_keymap": "Zed",
+  "base_keymap": "JetBrains",
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
     "dark": "Zed (Default)"
   },
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 16.0,
+  "buffer_font_size": 13.0,
   "theme": {
     "mode": "dark",
     "light": "One Light",
