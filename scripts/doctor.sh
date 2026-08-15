@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -u
+
+failed=0
+
+check_command() {
+  local command_name="$1"
+  if command -v "${command_name}" >/dev/null 2>&1; then
+    printf 'OK   %-10s %s\n' "${command_name}" "$(command -v "${command_name}")"
+  else
+    printf 'MISS %-10s not found\n' "${command_name}"
+    failed=1
+  fi
+}
+
+echo "Commands"
+check_command zed
+check_command ruby
+check_command bundle
+check_command rbenv
+check_command cargo
+check_command rustc
+
+echo
+echo "Zed files"
+for config_file in settings.json keymap.json; do
+  config_path="${XDG_CONFIG_HOME:-${HOME:?}/.config}/zed/${config_file}"
+  if [[ -e "${config_path}" ]]; then
+    printf 'OK   %s\n' "${config_path}"
+  else
+    printf 'MISS %s\n' "${config_path}"
+    failed=1
+  fi
+done
+
+echo
+if [[ "${failed}" -eq 0 ]]; then
+  echo "Environment looks ready."
+else
+  echo "Some optional or required tools are missing. See README.md."
+fi
+
+exit "${failed}"

@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "${script_dir}/.." && pwd)"
+zed_config_dir="${XDG_CONFIG_HOME:-${HOME:?}/.config}/zed"
+stamp="$(date +%Y%m%d-%H%M%S)-$$"
+
+if [[ -z "${repo_root}" || ! -d "${repo_root}/zed" ]]; then
+  echo "Could not resolve the repository root." >&2
+  exit 1
+fi
+
+mkdir -p "${zed_config_dir}"
+
+install_link() {
+  local source_path="$1"
+  local target_path="$2"
+  local backup_path
+
+  if [[ ! -f "${source_path}" ]]; then
+    echo "Missing source file: ${source_path}" >&2
+    exit 1
+  fi
+
+  if [[ -L "${target_path}" && "$(readlink "${target_path}")" == "${source_path}" ]]; then
+    echo "Already linked: ${target_path}"
+    return
+  fi
+
+  if [[ -e "${target_path}" || -L "${target_path}" ]]; then
+    backup_path="${target_path}.backup.${stamp}"
+    if [[ -e "${backup_path}" || -L "${backup_path}" ]]; then
+      echo "Backup target already exists: ${backup_path}" >&2
+      exit 1
+    fi
+    mv "${target_path}" "${backup_path}"
+    echo "Backed up: ${target_path} -> ${backup_path}"
+  fi
+
+  ln -s "${source_path}" "${target_path}"
+  echo "Linked: ${target_path} -> ${source_path}"
+}
+
+install_link "${repo_root}/zed/settings.json" "${zed_config_dir}/settings.json"
+install_link "${repo_root}/zed/keymap.json" "${zed_config_dir}/keymap.json"
+
+zshrc_path="${HOME:?}/.zshrc"
+source_line="source \"${repo_root}/shell/zed.zsh\""
+
+touch "${zshrc_path}"
+if ! grep -Fqx "${source_line}" "${zshrc_path}"; then
+  cp "${zshrc_path}" "${zshrc_path}.backup.${stamp}"
+  printf '\n%s\n' "${source_line}" >> "${zshrc_path}"
+  echo "Updated: ${zshrc_path}"
+else
+  echo "Already configured: ${zshrc_path}"
+fi
+
+echo
+echo "Done. Restart the terminal and Zed, then run scripts/doctor.sh."

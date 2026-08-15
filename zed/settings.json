@@ -1,0 +1,49 @@
+// Zed settings
+// https://zed.dev/docs/configuring-zed
+{
+  "auto_install_extensions": {
+    "html": true,
+    "ruby": true
+  },
+  "status_bar": {
+    "show_active_file": true
+  },
+  "languages": {
+    "Ruby": {
+      "tab_size": 2
+    }
+  },
+  "diff_view_style": "unified",
+  "git_panel": {
+    "file_icons": true,
+    "tree_view": true,
+    "group_by": "staging"
+  },
+  "project_panel": {
+    "hide_gitignore": false,
+    "dock": "left"
+  },
+  "pane_split_direction_vertical": "right",
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "base_keymap": "Zed",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "max_severity": null
+    }
+  }
+}

@@ -1,0 +1,16 @@
+// Zed keymap
+// https://zed.dev/docs/key-bindings
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Add workspace keybindings here.
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // Example: "j k": "vim::NormalBefore"
+    }
+  }
+]
