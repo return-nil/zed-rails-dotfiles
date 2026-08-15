@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -u
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "${script_dir}/.." && pwd)"
 failed=0
 
 check_command() {
@@ -43,6 +45,15 @@ for config_file in settings.json keymap.json; do
     failed=1
   fi
 done
+
+echo
+echo "Dotfiles commands"
+if [[ -x "${repo_root}/scripts/publish.sh" ]]; then
+  echo "OK   zed-sync publisher is executable"
+else
+  echo "MISS scripts/publish.sh is not executable"
+  failed=1
+fi
 
 echo
 echo "macOS settings"

@@ -47,6 +47,22 @@ Zedを起動後、コマンドパレットから`cli: install cli binary`を一�
 defaults delete dev.zed.Zed ApplePressAndHoldEnabled
 ```
 
+### 設定変更をGitHubへ反映
+
+`install.sh`の実行後は、Zedのユーザー設定とキーマップがこのリポジトリへ直接リンクされます。設定を変更したら、次のコマンドだけでGitHubへ反映できます。
+
+```bash
+zed-sync
+```
+
+コミットメッセージを指定することもできます。
+
+```bash
+zed-sync "フォントサイズを変更"
+```
+
+`zed-sync`はGitHubの`main`をfast-forwardで取得し、秘密情報とJSON構文を検査したうえで、`zed/settings.json`と`zed/keymap.json`だけをコミットしてpushします。別の変更、未追跡ファイル、競合、`main`以外のブランチがある場合は何も公開せず停止します。
+
 ### 3. Railsプロジェクト
 
 Railsプロジェクトのルートで実行します。
