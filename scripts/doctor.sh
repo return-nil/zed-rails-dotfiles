@@ -33,10 +33,11 @@ check_command bundle
 check_command rbenv
 check_command cargo
 check_command rustc
+check_command gh
 
 echo
 echo "Zed files"
-for config_file in settings.json keymap.json; do
+for config_file in settings.json keymap.json tasks.json; do
   config_path="${XDG_CONFIG_HOME:-${HOME:?}/.config}/zed/${config_file}"
   if [[ -e "${config_path}" ]]; then
     printf 'OK   %s\n' "${config_path}"
@@ -52,6 +53,14 @@ if [[ -x "${repo_root}/scripts/publish.sh" ]]; then
   echo "OK   zed-sync publisher is executable"
 else
   echo "MISS scripts/publish.sh is not executable"
+  failed=1
+fi
+
+open_pr_path="${XDG_CONFIG_HOME:-${HOME:?}/.config}/zed/open-line-pr.sh"
+if [[ -x "${open_pr_path}" ]]; then
+  echo "OK   current-line PR opener is executable"
+else
+  echo "MISS ${open_pr_path} is not executable"
   failed=1
 fi
 

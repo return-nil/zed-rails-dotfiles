@@ -14,6 +14,15 @@
     }
   },
   {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "alt-cmd-p": [
+        "task::Spawn",
+        { "task_name": "Open PR for current line" }
+      ]
+    }
+  },
+  {
     "bindings": {
       "cmd-d": "pane::SplitRight",
       "cmd-shift-d": "pane::SplitDown",

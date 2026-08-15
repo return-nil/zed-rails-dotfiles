@@ -44,6 +44,8 @@ install_link() {
 
 install_link "${repo_root}/zed/settings.json" "${zed_config_dir}/settings.json"
 install_link "${repo_root}/zed/keymap.json" "${zed_config_dir}/keymap.json"
+install_link "${repo_root}/zed/tasks.json" "${zed_config_dir}/tasks.json"
+install_link "${repo_root}/scripts/open-line-pr.sh" "${zed_config_dir}/open-line-pr.sh"
 
 if [[ "$(uname -s)" == "Darwin" ]] && command -v defaults >/dev/null 2>&1; then
   defaults write dev.zed.Zed ApplePressAndHoldEnabled -bool false

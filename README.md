@@ -6,6 +6,7 @@ Zedを使ったRails開発環境を再現するための設定です。
 
 - Zedの表示・Gitパネル・インライン診断設定
 - Zedのキーマップ
+- 現在行を変更したGitHub PRを開くショートカット
 - Ruby LSPとRuboCopだけを使うRailsプロジェクト設定
 - `code .` でZedを開くシェル設定
 - Ruby、Rust、Zed周辺ツールの導入手順
@@ -35,11 +36,19 @@ source "$HOME/.cargo/env"
 ./scripts/install.sh
 ```
 
-既存の`settings.json`と`keymap.json`がある場合は、削除せず同じ場所へバックアップしてからシンボリックリンクを作ります。`~/.zshrc`にも読み込み設定を追記します。
+既存の`settings.json`、`keymap.json`、`tasks.json`がある場合は、削除せず同じ場所へバックアップしてからシンボリックリンクを作ります。`~/.zshrc`にも読み込み設定を追記します。
 
 Zedを起動後、コマンドパレットから`cli: install cli binary`を一度実行してください。
 
 `install.sh`はZedに限ってmacOSのアクセント文字ポップアップを無効にし、英字の長押しをキーリピートに変更します。反映にはZedの完全終了と再起動が必要です。
+
+GitHub CLIを初めて使うPCでは、現在行のPRを開く機能のために一度ログインします。
+
+```bash
+gh auth login
+```
+
+エディタ上で`Option + Command + P`を押すと、現在行に関連するGitHub PRをブラウザで開けます。
 
 元のアクセント文字入力へ戻す場合は、次を実行します。
 
