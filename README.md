@@ -1,6 +1,6 @@
 # Zed Rails dotfiles
 
-自宅と仕事のMacで、Zedを使ったRails開発環境を再現するための設定です。
+Zedを使ったRails開発環境を再現するための設定です。
 
 ## 復元されるもの
 
