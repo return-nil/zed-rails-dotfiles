@@ -14,10 +14,13 @@
     }
   },
   {
-    "context": "Pane",
     "bindings": {
       "cmd-d": "pane::SplitRight",
-      "cmd-shift-d": "pane::SplitDown"
+      "cmd-shift-d": "pane::SplitDown",
+      "cmd-alt-left": "workspace::ActivatePaneLeft",
+      "cmd-alt-right": "workspace::ActivatePaneRight",
+      "cmd-alt-up": "workspace::ActivatePaneUp",
+      "cmd-alt-down": "workspace::ActivatePaneDown"
     }
   }
 ]
