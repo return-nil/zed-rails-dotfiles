@@ -1,0 +1,16 @@
+// Zed global tasks
+// https://zed.dev/docs/tasks
+[
+  {
+    "label": "Open PR for current line",
+    "command": "$HOME/.config/zed/open-line-pr.sh",
+    "args": ["$ZED_WORKTREE_ROOT", "$ZED_RELATIVE_FILE", "$ZED_ROW"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "on_success",
+    "show_summary": false,
+    "show_command": false,
+    "save": "none"
+  }
+]
