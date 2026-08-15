@@ -45,6 +45,11 @@ install_link() {
 install_link "${repo_root}/zed/settings.json" "${zed_config_dir}/settings.json"
 install_link "${repo_root}/zed/keymap.json" "${zed_config_dir}/keymap.json"
 
+if [[ "$(uname -s)" == "Darwin" ]] && command -v defaults >/dev/null 2>&1; then
+  defaults write dev.zed.Zed ApplePressAndHoldEnabled -bool false
+  echo "Configured Zed key repeat: ApplePressAndHoldEnabled=false"
+fi
+
 zshrc_path="${HOME:?}/.zshrc"
 source_line="source \"${repo_root}/shell/zed.zsh\""
 

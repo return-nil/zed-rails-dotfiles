@@ -13,8 +13,19 @@ check_command() {
   fi
 }
 
+check_zed() {
+  if command -v zed >/dev/null 2>&1; then
+    printf 'OK   %-10s %s\n' "zed" "$(command -v zed)"
+  elif [[ -x "/Applications/Zed.app/Contents/MacOS/cli" ]]; then
+    printf 'OK   %-10s %s\n' "zed" "/Applications/Zed.app/Contents/MacOS/cli"
+  else
+    printf 'MISS %-10s not found\n' "zed"
+    failed=1
+  fi
+}
+
 echo "Commands"
-check_command zed
+check_zed
 check_command ruby
 check_command bundle
 check_command rbenv
@@ -32,6 +43,20 @@ for config_file in settings.json keymap.json; do
     failed=1
   fi
 done
+
+echo
+echo "macOS settings"
+if [[ "$(uname -s)" == "Darwin" ]] && command -v defaults >/dev/null 2>&1; then
+  press_and_hold="$(defaults read dev.zed.Zed ApplePressAndHoldEnabled 2>/dev/null || true)"
+  if [[ "${press_and_hold}" == "0" ]]; then
+    echo "OK   Zed key repeat enabled"
+  else
+    echo "MISS Zed key repeat is not enabled"
+    failed=1
+  fi
+else
+  echo "SKIP ApplePressAndHoldEnabled is macOS-only"
+fi
 
 echo
 if [[ "${failed}" -eq 0 ]]; then

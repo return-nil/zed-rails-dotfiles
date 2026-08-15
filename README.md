@@ -39,6 +39,14 @@ source "$HOME/.cargo/env"
 
 Zedを起動後、コマンドパレットから`cli: install cli binary`を一度実行してください。
 
+`install.sh`はZedに限ってmacOSのアクセント文字ポップアップを無効にし、英字の長押しをキーリピートに変更します。反映にはZedの完全終了と再起動が必要です。
+
+元のアクセント文字入力へ戻す場合は、次を実行します。
+
+```bash
+defaults delete dev.zed.Zed ApplePressAndHoldEnabled
+```
+
 ### 3. Railsプロジェクト
 
 Railsプロジェクトのルートで実行します。
