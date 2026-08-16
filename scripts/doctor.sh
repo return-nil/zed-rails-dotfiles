@@ -35,6 +35,13 @@ check_command cargo
 check_command rustc
 check_command gh
 
+if [[ -d "/Applications/Ghostty.app" ]]; then
+  printf 'OK   %-10s %s\n' "ghostty" "/Applications/Ghostty.app"
+else
+  printf 'MISS %-10s not found\n' "ghostty"
+  failed=1
+fi
+
 echo
 echo "Zed files"
 for config_file in settings.json keymap.json tasks.json; do
@@ -48,9 +55,19 @@ for config_file in settings.json keymap.json tasks.json; do
 done
 
 echo
+echo "Ghostty files"
+ghostty_config_path="${XDG_CONFIG_HOME:-${HOME:?}/.config}/ghostty/config.ghostty"
+if [[ -e "${ghostty_config_path}" ]]; then
+  printf 'OK   %s\n' "${ghostty_config_path}"
+else
+  printf 'MISS %s\n' "${ghostty_config_path}"
+  failed=1
+fi
+
+echo
 echo "Dotfiles commands"
 if [[ -x "${repo_root}/scripts/publish.sh" ]]; then
-  echo "OK   zed-sync publisher is executable"
+  echo "OK   dev-sync publisher is executable"
 else
   echo "MISS scripts/publish.sh is not executable"
   failed=1

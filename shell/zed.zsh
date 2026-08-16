@@ -4,8 +4,12 @@ if [[ -x "/Applications/Zed.app/Contents/MacOS/cli" ]]; then
   alias code="zed"
 fi
 
-typeset -g ZED_DOTFILES_ROOT="${${(%):-%N}:A:h:h}"
+typeset -g RAILS_DEV_DOTFILES_ROOT="${${(%):-%N}:A:h:h}"
+
+dev-sync() {
+  "${RAILS_DEV_DOTFILES_ROOT}/scripts/publish.sh" "$@"
+}
 
 zed-sync() {
-  "${ZED_DOTFILES_ROOT}/scripts/publish.sh" "$@"
+  dev-sync "$@"
 }

@@ -3,8 +3,8 @@ set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(cd "${script_dir}/.." && pwd)"
-config_files=("zed/settings.json" "zed/keymap.json")
-commit_message="${1:-Zed設定を更新 $(date '+%Y-%m-%d %H:%M')}"
+config_files=("zed/settings.json" "zed/keymap.json" "ghostty/config.ghostty")
+commit_message="${1:-エディタ・ターミナル設定を更新 $(date '+%Y-%m-%d %H:%M')}"
 
 if [[ -z "${repo_root}" || ! -d "${repo_root}/.git" ]]; then
   echo "Could not resolve the dotfiles repository." >&2
@@ -15,29 +15,29 @@ cd "${repo_root}"
 
 current_branch="$(git branch --show-current)"
 if [[ "${current_branch}" != "main" ]]; then
-  echo "zed-sync only publishes from main. Current branch: ${current_branch}" >&2
+  echo "dev-sync only publishes from main. Current branch: ${current_branch}" >&2
   exit 1
 fi
 
 if ! git diff --cached --quiet; then
-  echo "Staged changes already exist. Commit or unstage them before zed-sync." >&2
+  echo "Staged changes already exist. Commit or unstage them before dev-sync." >&2
   exit 1
 fi
 
-if ! git diff --quiet -- . ':(exclude)zed/settings.json' ':(exclude)zed/keymap.json'; then
-  echo "Changes outside Zed settings exist. Handle them separately before zed-sync." >&2
+if ! git diff --quiet -- . ':(exclude)zed/settings.json' ':(exclude)zed/keymap.json' ':(exclude)ghostty/config.ghostty'; then
+  echo "Changes outside synchronized settings exist. Handle them separately before dev-sync." >&2
   exit 1
 fi
 
 if [[ -n "$(git ls-files --others --exclude-standard)" ]]; then
-  echo "Untracked files exist. Handle them separately before zed-sync." >&2
+  echo "Untracked files exist. Handle them separately before dev-sync." >&2
   exit 1
 fi
 
 git pull --ff-only origin main
 
 if git diff --quiet -- "${config_files[@]}"; then
-  echo "Zed settings are already synchronized."
+  echo "Settings are already synchronized."
   exit 0
 fi
 
@@ -61,7 +61,7 @@ validate_jsonc() {
   ' "$1"
 }
 
-for config_file in "${config_files[@]}"; do
+for config_file in zed/settings.json zed/keymap.json; do
   validate_jsonc "${config_file}"
 done
 
@@ -69,11 +69,11 @@ git diff --check -- "${config_files[@]}"
 git add -- "${config_files[@]}"
 
 if git diff --cached --quiet; then
-  echo "No publishable Zed settings changes found."
+  echo "No publishable settings changes found."
   exit 0
 fi
 
 git commit -m "${commit_message}"
 git push origin main
 
-echo "Published Zed settings to GitHub."
+echo "Published Zed and Ghostty settings to GitHub."

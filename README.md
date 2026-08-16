@@ -1,11 +1,12 @@
-# Zed Rails dotfiles
+# Rails Development Dotfiles
 
-Zedを使ったRails開発環境を再現するための設定です。
+Zed、Ghostty、Herdrを使ったRails開発環境を再現するための設定です。
 
 ## 復元されるもの
 
 - Zedの表示・Gitパネル・インライン診断設定
 - Zedのキーマップ
+- Ghosttyの表示・macOSキーボード設定
 - 現在行を変更したGitHub PRを開くショートカット
 - Ruby LSPとRuboCopだけを使うRailsプロジェクト設定
 - `code .` でZedを開くシェル設定
@@ -30,13 +31,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 ```
 
-### 2. Zed設定
+### 2. Zed・Ghostty設定
 
 ```bash
 ./scripts/install.sh
 ```
 
-既存の`settings.json`、`keymap.json`、`tasks.json`がある場合は、削除せず同じ場所へバックアップしてからシンボリックリンクを作ります。`~/.zshrc`にも読み込み設定を追記します。
+既存のZed・Ghostty設定がある場合は、削除せず同じ場所へバックアップしてからシンボリックリンクを作ります。`~/.zshrc`にも読み込み設定を追記します。
 
 Zedを起動後、コマンドパレットから`cli: install cli binary`を一度実行してください。
 
@@ -58,19 +59,19 @@ defaults delete dev.zed.Zed ApplePressAndHoldEnabled
 
 ### 設定変更をGitHubへ反映
 
-`install.sh`の実行後は、Zedのユーザー設定とキーマップがこのリポジトリへ直接リンクされます。設定を変更したら、次のコマンドだけでGitHubへ反映できます。
+`install.sh`の実行後は、ZedとGhosttyのユーザー設定がこのリポジトリへ直接リンクされます。設定を変更したら、次のコマンドだけでGitHubへ反映できます。
 
 ```bash
-zed-sync
+dev-sync
 ```
 
 コミットメッセージを指定することもできます。
 
 ```bash
-zed-sync "フォントサイズを変更"
+dev-sync "フォントサイズを変更"
 ```
 
-`zed-sync`はGitHubの`main`をfast-forwardで取得し、秘密情報とJSON構文を検査したうえで、`zed/settings.json`と`zed/keymap.json`だけをコミットしてpushします。別の変更、未追跡ファイル、競合、`main`以外のブランチがある場合は何も公開せず停止します。
+`dev-sync`はGitHubの`main`をfast-forwardで取得し、秘密情報とJSON構文を検査したうえで、ZedとGhosttyの設定だけをコミットしてpushします。以前の`zed-sync`も互換コマンドとして利用できます。別の変更、未追跡ファイル、競合、`main`以外のブランチがある場合は何も公開せず停止します。
 
 ### 3. Railsプロジェクト
 
@@ -78,7 +79,7 @@ Railsプロジェクトのルートで実行します。
 
 ```bash
 mkdir -p .zed
-cp /path/to/zed-rails-dotfiles/templates/rails/.zed/settings.json .zed/settings.json
+cp /path/to/rails-dev-dotfiles/templates/rails/.zed/settings.json .zed/settings.json
 bundle install
 ```
 

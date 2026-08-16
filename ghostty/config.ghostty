@@ -1,0 +1,18 @@
+# Ghostty settings for Zed + Herdr
+
+font-size = 14
+
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+window-save-state = always
+
+mouse-hide-while-typing = true
+cursor-style-blink = false
+
+# Use the left Option key as Alt while keeping the right Option key for macOS symbols.
+macos-option-as-alt = left
+
+# Subtle transparency.
+background-opacity = 0.96
+background-blur = 20
