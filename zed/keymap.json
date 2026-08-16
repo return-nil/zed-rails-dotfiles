@@ -24,6 +24,7 @@
   },
   {
     "bindings": {
+      "cmd-n": "workspace::NewFile",
       "cmd-d": "pane::SplitRight",
       "cmd-shift-d": "pane::SplitDown",
       "cmd-alt-left": "workspace::ActivatePaneLeft",

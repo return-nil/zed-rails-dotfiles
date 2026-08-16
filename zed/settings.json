@@ -1,6 +1,16 @@
 // Zed settings
 // https://zed.dev/docs/configuring-zed
 {
+  "agent": {
+    "default_model": {
+      "provider": "openai-subscribed",
+      "model": "gpt-5.6-sol",
+      "enable_thinking": true,
+      "effort": "medium"
+    },
+    "favorite_models": [],
+    "model_parameters": []
+  },
   "toolbar": {
     "code_actions": true
   },
