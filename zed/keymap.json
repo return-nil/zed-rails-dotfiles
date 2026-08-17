@@ -19,7 +19,10 @@
       "alt-cmd-p": [
         "task::Spawn",
         { "task_name": "Open PR for current line" }
-      ]
+      ],
+      // JetBrains base keymap が単独 cmd-k を git panel に割り当てるため ⌘K P (CopyPath) は届かない
+      "cmd-shift-c": "editor::CopyPath",
+      "cmd-alt-shift-c": "editor::CopyRelativePath"
     }
   },
   {
