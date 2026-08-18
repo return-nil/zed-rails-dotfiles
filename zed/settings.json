@@ -62,6 +62,18 @@
     "light": "One Light",
     "dark": "One Dark"
   },
+  // One Dark 既定のコメント色 (#5d636f) は背景とのコントラストが 2.3:1 しかなく読みにくいため引き上げる。
+  // 単一の override が全テーマに適用されるので、light テーマへ切り替えるときは値を見直すこと。
+  "experimental.theme_overrides": {
+    "syntax": {
+      "comment": {
+        "color": "#8b949e"
+      },
+      "comment.doc": {
+        "color": "#8b949e"
+      }
+    }
+  },
   "diagnostics": {
     "inline": {
       "enabled": true,
@@ -71,7 +83,9 @@
   "terminal": {
     "minimum_contrast": 0,
     "env": {
+      // Zed が NO_COLOR=1 を持つ環境から起動されると TUI から色が消えるため、空文字で打ち消す。
       "COLORTERM": "truecolor",
+      "NO_COLOR": "",
       "TERM": "xterm-256color"
     }
   }
