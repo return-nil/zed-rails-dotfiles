@@ -40,5 +40,13 @@
     "bindings": {
       "alt-cmd-y": "editor::OpenPermalinkToLine"
     }
+  },
+  {
+    // JetBrains base keymap の "Editor && mode == auto_height" が shift-enter を
+    // editor::Newline に奪うため、検索バーの入力欄で取り戻す
+    "context": "(BufferSearchBar || ProjectSearchBar) > Editor",
+    "bindings": {
+      "shift-enter": "search::SelectPreviousMatch"
+    }
   }
 ]

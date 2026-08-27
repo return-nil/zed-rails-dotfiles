@@ -1,6 +1,7 @@
 // Zed settings
 // https://zed.dev/docs/configuring-zed
 {
+  "accessible_mode": false,
   "agent": {
     "default_model": {
       "provider": "openai-subscribed",
@@ -25,13 +26,18 @@
   "agent_ui_font_size": 16.0,
   "auto_install_extensions": {
     "html": true,
-    "ruby": true
+    "ruby": true,
+    // .slim がプレーンテキスト扱いになるため。Ruby 部分は injection で ruby 拡張が着色する。
+    "slim": true
   },
   "status_bar": {
     "show_active_file": true
   },
   "languages": {
     "Ruby": {
+      "tab_size": 2
+    },
+    "Slim": {
       "tab_size": 2
     }
   },
@@ -45,6 +51,10 @@
     "hide_gitignore": false,
     "dock": "left"
   },
+  // gitignore された tmp/plans を cmd-P の対象にする。
+  // 既定値 [".env*"] は置き換わるので併記が必要。worktree 側の tmp/plans は symlink のため scan_symlinks も要る。
+  "file_scan_inclusions": [".env*", "tmp/plans", "tmp/plans/**"],
+  "scan_symlinks": "always",
   "pane_split_direction_vertical": "right",
   "session": {
     "trust_all_worktrees": true
@@ -81,7 +91,6 @@
     }
   },
   "terminal": {
-    "minimum_contrast": 0,
     "env": {
       // Zed が NO_COLOR=1 を持つ環境から起動されると TUI から色が消えるため、空文字で打ち消す。
       "COLORTERM": "truecolor",
